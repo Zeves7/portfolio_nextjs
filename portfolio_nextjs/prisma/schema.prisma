@@ -10,5 +10,76 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
+}
+
+
+
+// =========================
+// 📂 Entidad: Usuario
+// =========================
+model User {
+  id             Int          @id @default(autoincrement())
+  name           String
+  email          String       @unique
+  bio            String?
+  profilePicture String?
+  socialLinks    Json?        // puedes usar JSON o crear tabla aparte
+  projects       Project[]    // relación 1:N con proyectos
+  experiences    Experience[] // relación 1:N con experiencias
+  contacts       Contact[]    // relación 1:N con mensajes
+}
+
+// =========================
+// 📂 Entidad: Proyecto
+// =========================
+model Project {
+  id           Int           @id @default(autoincrement())
+  title        String
+  description  String
+  imageUrl     String?
+  repoUrl      String?
+  liveUrl      String?
+  date         DateTime       @default(now())
+  employer     String?
+  userId       Int
+  user         User           @relation(fields: [userId], references: [id])
+  technologies Technology[]   @relation("ProjectTechnologies")
+}
+
+// =========================
+// 📂 Entidad: Tecnología
+// =========================
+model Technology {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  iconUrl   String?
+  projects  Project[]  @relation("ProjectTechnologies")
+}
+
+// =========================
+// 📂 Entidad: Experiencia
+// =========================
+model Experience {
+  id           Int      @id @default(autoincrement())
+  role         String
+  organization String
+  startDate    DateTime
+  endDate      DateTime?
+  description  String?
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
+}
+
+// =========================
+// 📂 Entidad: Contacto / Mensajes
+// =========================
+model Contact {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
 }
