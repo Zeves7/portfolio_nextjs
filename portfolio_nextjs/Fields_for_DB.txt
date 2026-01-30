@@ -1,0 +1,59 @@
+---
+
+## 📂 Entidad: Usuario
+- `id` (PK, UUID o autoincremental)
+- `name` (nombre completo)
+- `email` (contacto)
+- `bio` (descripción corta)
+- `profilePicture` (URL de la foto)
+- `socialLinks` (JSON o tabla relacionada: GitHub, LinkedIn, Twitter, etc.)
+
+---
+
+## 📂 Entidad: Proyecto
+- `id` (PK)
+- `title` (nombre del proyecto)
+- `description` (texto descriptivo)
+- `imageUrl` (imagen destacada)
+- `repoUrl` (link al repositorio)
+- `liveUrl` (link a demo en producción)
+- `technologies` (lista o relación con tabla de tecnologías)
+- `date` (fecha de creación/publicación)
+- `employer` (opcional: cliente o empresa)
+
+---
+
+## 📂 Entidad: Tecnología
+- `id` (PK)
+- `name` (ej. "React", "Next.js", "Prisma", "TailwindCSS")
+- `iconUrl` (opcional, para mostrar logos)
+
+---
+
+## 📂 Entidad: Experiencia
+- `id` (PK)
+- `role` (ej. "Profesor Asistente")
+- `organization` (ej. "InSTEC")
+- `startDate`
+- `endDate` (nullable si sigue activo)
+- `description`
+
+---
+
+## 📂 Entidad: Contacto / Mensajes
+Si planeas tener un formulario de contacto.
+- `id` (PK)
+- `name` (quien escribe)
+- `email`
+- `message`
+- `createdAt`
+
+---
+
+### 🔗 Relaciones
+- **Usuario → Proyectos**: un usuario puede tener muchos proyectos.
+- **Proyecto ↔ Tecnología**: relación muchos-a-muchos.
+- **Usuario → Experiencias**: un usuario puede tener varias experiencias.
+- **Usuario → Contactos**: mensajes recibidos.
+
+---
